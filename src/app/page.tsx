@@ -14,8 +14,40 @@ const MAP_EMBED_URL =
 const NEXA_URL = "https://www.nexarentals.es";
 
 const CONTACT_WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
-  "Hello Emotion Scooter & Bike Rental 👋 I would like more information about renting a scooter in Mallorca."
+  "Hello Emotion Scooter & Bike Rental 👋 I would like more information about renting a scooter or bicycle in Mallorca."
 )}`;
+
+function InstagramIcon() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      width="19"
+      height="19"
+      fill="none"
+      aria-hidden="true"
+    >
+      <rect
+        x="3"
+        y="3"
+        width="18"
+        height="18"
+        rx="5"
+        stroke="currentColor"
+        strokeWidth="1.8"
+      />
+
+      <circle
+        cx="12"
+        cy="12"
+        r="4.2"
+        stroke="currentColor"
+        strokeWidth="1.8"
+      />
+
+      <circle cx="17.5" cy="6.7" r="1.1" fill="currentColor" />
+    </svg>
+  );
+}
 
 export default function Home() {
   function sendWhatsAppEnquiry(event: FormEvent<HTMLFormElement>) {
@@ -27,8 +59,8 @@ export default function Home() {
     const customerPhone = String(form.get("customerPhone") ?? "");
     const pickupDate = String(form.get("pickupDate") ?? "");
     const returnDate = String(form.get("returnDate") ?? "");
-    const scooters = String(form.get("scooters") ?? "");
-    const scooterModel = String(form.get("scooterModel") ?? "");
+    const quantity = String(form.get("quantity") ?? "");
+    const rentalChoice = String(form.get("rentalChoice") ?? "");
     const accommodation = String(form.get("accommodation") ?? "");
     const licence = String(form.get("licence") ?? "");
     const message = String(form.get("message") ?? "");
@@ -36,19 +68,22 @@ export default function Home() {
     const whatsappMessage = `
 Hello Emotion Scooter & Bike Rental 👋
 
-I would like to request a scooter rental.
+I would like to request a rental.
 
 Name: ${customerName}
 Phone number: ${customerPhone}
 Pickup date: ${pickupDate}
 Return date: ${returnDate}
-Number of scooters: ${scooters}
-Preferred scooter: ${scooterModel}
+Number of vehicles: ${quantity}
+Preferred rental: ${rentalChoice}
 Hotel / accommodation: ${accommodation || "Not provided"}
 Driving licence: ${licence}
 Additional message: ${message || "No additional message"}
 
-Advertised price: €40 per day.
+Scooter price reference:
+• Piaggio Liberty 125: €40 per day
+• Vespa 125: €55 per day
+• Standard bicycle: Price on request
 
 Please confirm availability and the final rental price.
     `.trim();
@@ -67,19 +102,21 @@ Please confirm availability and the final rental price.
 
         <nav className="desktop-navigation" aria-label="Main navigation">
           <a href="#about">About</a>
-          <a href="#scooters">Scooters</a>
+          <a href="#scooters">Rentals</a>
           <a href="#location">Location</a>
           <a href="#partner">Partner</a>
         </nav>
 
         <div className="navbar-actions">
           <a
-            className="navbar-social-link"
+            className="navbar-social-link navbar-instagram-icon"
             href={INSTAGRAM_URL}
             target="_blank"
             rel="noreferrer"
+            aria-label="Visit Emotion Rent on Instagram"
+            title="Instagram"
           >
-            Instagram
+            <InstagramIcon />
           </a>
 
           <a
@@ -104,7 +141,7 @@ Please confirm availability and the final rental price.
 
             <img
               src="/images/dte1.png"
-              alt="Emotion scooter rental in Mallorca"
+              alt="Emotion scooter and bicycle rental in Mallorca"
               className="hero-image"
             />
           </picture>
@@ -112,7 +149,7 @@ Please confirm availability and the final rental price.
           <div className="hero-overlay" />
 
           <div className="hero-content">
-            <p className="eyebrow">Scooter rental in Mallorca</p>
+            <p className="eyebrow">Scooter and bicycle rental in Mallorca</p>
 
             <h1>
               Explore Mallorca
@@ -120,31 +157,31 @@ Please confirm availability and the final rental price.
             </h1>
 
             <p className="hero-description">
-              Rent a comfortable and reliable scooter and discover Mallorca at
-              your own pace. Easy WhatsApp booking, friendly local service and
-              scooters available from €40 per day.
+              Rent a comfortable 125cc scooter or a standard bicycle and
+              discover Mallorca at your own pace. Enjoy easy WhatsApp booking,
+              friendly local service and an uncomplicated rental experience.
             </p>
 
             <div className="hero-actions">
               <a className="primary-button" href="#booking">
-                Request a scooter
+                Request a rental
                 <span aria-hidden="true">→</span>
               </a>
 
               <a className="secondary-button" href="#scooters">
-                View scooters
+                View rentals
               </a>
             </div>
 
             <div className="hero-trust">
               <div>
-                <strong>€40/day</strong>
-                <span>Simple daily price</span>
+                <strong>Scooters & bicycles</strong>
+                <span>Flexible rental choices</span>
               </div>
 
               <div>
-                <strong>125cc</strong>
-                <span>Automatic scooters</span>
+                <strong>Essentials included</strong>
+                <span>Helmets, holder and insurance</span>
               </div>
 
               <div>
@@ -171,27 +208,37 @@ Please confirm availability and the final rental price.
             <p>
               Emotion Scooter & Bike Rental helps visitors discover Mallorca
               independently, comfortably and without unnecessary complications.
-              Our goal is to provide a personal rental service with clear
-              information and direct communication.
+              Choose between automatic 125cc scooters and standard bicycles for
+              a relaxed island experience.
             </p>
 
             <p>
-              Whether you want to visit nearby beaches, explore the coast or
-              move around during your holiday, our automatic 125cc scooters
-              give you the freedom to enjoy more of the island.
+              Scooter rentals include essential equipment such as helmets, a
+              phone holder and basic insurance. Our team is also available
+              through WhatsApp to answer questions and confirm availability.
             </p>
+
+            <div className="licence-information-box">
+              <strong>Driving licence required for 125cc scooters</strong>
+
+              <p>
+                Drivers must hold a valid A1, A2 or A motorcycle licence, or a
+                valid B car licence held for at least three years. No driving
+                licence is required for a standard bicycle.
+              </p>
+            </div>
           </div>
         </section>
 
         <section className="fleet-section section" id="scooters">
           <div className="section-heading centered-heading">
-            <p className="section-label">Our scooters</p>
+            <p className="section-label">Our rentals</p>
 
-            <h2>Choose your scooter for Mallorca.</h2>
+            <h2>Choose how you want to explore Mallorca.</h2>
 
             <p>
-              Comfortable, reliable and automatic scooters available for a
-              simple price of €40 per day.
+              Rent an automatic 125cc scooter or ask us about the availability
+              of our standard bicycles.
             </p>
           </div>
 
@@ -233,8 +280,10 @@ Please confirm availability and the final rental price.
                 <div className="scooter-features">
                   <span>125cc engine</span>
                   <span>Fully automatic</span>
-                  <span>Comfortable ride</span>
-                  <span>Reliable and easy</span>
+                  <span>Helmets included</span>
+                  <span>Phone holder included</span>
+                  <span>Basic insurance included</span>
+                  <span>A1, A2, A or B 3+ years</span>
                 </div>
 
                 <a className="scooter-book-button" href="#booking">
@@ -264,7 +313,7 @@ Please confirm availability and the final rental price.
                   </div>
 
                   <div className="scooter-price">
-                    <strong>€40</strong>
+                    <strong>€55</strong>
                     <span>per day</span>
                   </div>
                 </div>
@@ -278,8 +327,10 @@ Please confirm availability and the final rental price.
                 <div className="scooter-features">
                   <span>125cc engine</span>
                   <span>Fully automatic</span>
-                  <span>Comfortable seat</span>
-                  <span>Easy to ride</span>
+                  <span>Helmets included</span>
+                  <span>Phone holder included</span>
+                  <span>Basic insurance included</span>
+                  <span>A1, A2, A or B 3+ years</span>
                 </div>
 
                 <a className="scooter-book-button" href="#booking">
@@ -289,6 +340,29 @@ Please confirm availability and the final rental price.
               </div>
             </article>
           </div>
+
+          <article className="bicycle-rental-card">
+            <div>
+              <p className="section-label">Standard bicycle rental</p>
+
+              <h3>Explore Mallorca at a relaxed pace.</h3>
+
+              <p>
+                Standard bicycles are also available for visitors who prefer a
+                simple and enjoyable way to move around nearby beaches, streets
+                and coastal areas. No driving licence is required.
+              </p>
+            </div>
+
+            <div className="bicycle-rental-actions">
+              <span>Price available on request</span>
+
+              <a href="#booking">
+                Request a bicycle
+                <span aria-hidden="true">→</span>
+              </a>
+            </div>
+          </article>
         </section>
 
         <section className="location-section section" id="location">
@@ -308,12 +382,12 @@ Please confirm availability and the final rental price.
             <div className="location-information">
               <p className="section-label">Visit Emotion</p>
 
-              <h2>Your Mallorca scooter adventure starts here.</h2>
+              <h2>Your Mallorca adventure starts here.</h2>
 
               <p>
-                Contact us before arriving to confirm scooter availability,
-                rental dates and pickup time. Our team will reply directly
-                through WhatsApp.
+                Contact us before arriving to confirm scooter or bicycle
+                availability, rental dates and pickup time. Our team will reply
+                directly through WhatsApp.
               </p>
 
               <div className="location-contact-list">
@@ -328,8 +402,13 @@ Please confirm availability and the final rental price.
                 </div>
 
                 <div>
-                  <span>Daily rental</span>
+                  <span>Scooter rental</span>
                   <strong>From €40 per day</strong>
+                </div>
+
+                <div>
+                  <span>Bicycle rental</span>
+                  <strong>Price on request</strong>
                 </div>
               </div>
 
@@ -413,15 +492,15 @@ Please confirm availability and the final rental price.
         <section className="booking-section" id="booking">
           <div className="booking-information">
             <p className="section-label section-label-light">
-              Request your scooter
+              Request your rental
             </p>
 
             <h2>Tell us your rental dates.</h2>
 
             <p className="booking-introduction">
-              Complete this short form. When you press the button, WhatsApp will
-              open with your booking information already prepared and it will
-              be sent directly to Emotion Scooter & Bike Rental.
+              Complete this short form. WhatsApp will open with your rental
+              information already prepared and ready to send directly to
+              Emotion Scooter & Bike Rental.
             </p>
 
             <div className="booking-benefits">
@@ -429,8 +508,9 @@ Please confirm availability and the final rental price.
                 <span>✓</span>
 
                 <p>
-                  <strong>No online payment</strong>
-                  Send an enquiry and wait for availability confirmation.
+                  <strong>All essential extras included</strong>
+                  Scooter helmets, phone holder and basic insurance are
+                  included.
                 </p>
               </div>
 
@@ -438,8 +518,9 @@ Please confirm availability and the final rental price.
                 <span>✓</span>
 
                 <p>
-                  <strong>Direct WhatsApp communication</strong>
-                  Speak directly with the Emotion rental team.
+                  <strong>Clear licence requirements</strong>
+                  A1, A2, A, or B held for at least three years for 125cc
+                  scooters.
                 </p>
               </div>
 
@@ -447,8 +528,8 @@ Please confirm availability and the final rental price.
                 <span>✓</span>
 
                 <p>
-                  <strong>Simple daily price</strong>
-                  Scooters are advertised from €40 per day.
+                  <strong>Standard bicycles available</strong>
+                  No driving licence is required for a bicycle rental.
                 </p>
               </div>
             </div>
@@ -494,33 +575,39 @@ Please confirm availability and the final rental price.
               </label>
 
               <label className="form-field">
-                <span>Number of scooters *</span>
+                <span>Number of vehicles *</span>
 
-                <select name="scooters" defaultValue="1" required>
-                  <option value="1">1 scooter</option>
-                  <option value="2">2 scooters</option>
-                  <option value="3">3 scooters</option>
-                  <option value="4">4 scooters</option>
-                  <option value="5+">5 or more scooters</option>
+                <select name="quantity" defaultValue="1" required>
+                  <option value="1">1 vehicle</option>
+                  <option value="2">2 vehicles</option>
+                  <option value="3">3 vehicles</option>
+                  <option value="4">4 vehicles</option>
+                  <option value="5+">5 or more vehicles</option>
                 </select>
               </label>
 
               <label className="form-field">
-                <span>Preferred scooter *</span>
+                <span>Preferred rental *</span>
 
                 <select
-                  name="scooterModel"
+                  name="rentalChoice"
                   defaultValue="Piaggio Liberty 125"
                   required
                 >
                   <option value="Piaggio Liberty 125">
-                    Piaggio Liberty 125
+                    Piaggio Liberty 125 — €40/day
                   </option>
 
-                  <option value="Vespa 125">Vespa 125</option>
+                  <option value="Vespa 125">
+                    Vespa 125 — €55/day
+                  </option>
+
+                  <option value="Standard bicycle">
+                    Standard bicycle — price on request
+                  </option>
 
                   <option value="No preference">
-                    No preference — any available scooter
+                    No preference — any available option
                   </option>
                 </select>
               </label>
@@ -536,19 +623,35 @@ Please confirm availability and the final rental price.
               </label>
 
               <label className="form-field form-field-full">
-                <span>Valid driving licence *</span>
+                <span>Driving licence *</span>
 
                 <select name="licence" defaultValue="" required>
                   <option value="" disabled>
-                    Select an option
+                    Select your licence situation
                   </option>
 
-                  <option value="Yes, I have a valid driving licence">
-                    Yes, I have a valid driving licence
+                  <option value="Valid A1 motorcycle licence">
+                    I have a valid A1 motorcycle licence
+                  </option>
+
+                  <option value="Valid A2 motorcycle licence">
+                    I have a valid A2 motorcycle licence
+                  </option>
+
+                  <option value="Valid A motorcycle licence">
+                    I have a valid A motorcycle licence
+                  </option>
+
+                  <option value="Valid B car licence held for at least 3 years">
+                    I have a valid B car licence held for at least 3 years
+                  </option>
+
+                  <option value="Bicycle rental - no driving licence required">
+                    Bicycle rental — no driving licence required
                   </option>
 
                   <option value="I need information about the licence requirements">
-                    I need information about licence requirements
+                    I need information about the licence requirements
                   </option>
                 </select>
               </label>
@@ -583,18 +686,23 @@ Please confirm availability and the final rental price.
 
           <div>
             <strong>Emotion</strong>
-            <p>Scooter & Bike Rental Mallorca</p>
+            <p>Scooter & Bicycle Rental Mallorca</p>
           </div>
         </div>
 
         <div className="footer-links">
           <a href="#about">About</a>
-          <a href="#scooters">Scooters</a>
+          <a href="#scooters">Rentals</a>
           <a href="#location">Location</a>
           <a href="#partner">Partner</a>
           <a href="#booking">Booking enquiry</a>
 
-          <a href={INSTAGRAM_URL} target="_blank" rel="noreferrer">
+          <a
+            href={INSTAGRAM_URL}
+            target="_blank"
+            rel="noreferrer"
+            aria-label="Visit Emotion on Instagram"
+          >
             Instagram
           </a>
         </div>
