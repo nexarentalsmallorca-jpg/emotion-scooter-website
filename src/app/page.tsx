@@ -11,8 +11,6 @@ const MAPS_URL = "https://maps.app.goo.gl/vUgErC6mGxLB9KCd9";
 const MAP_EMBED_URL =
   "https://www.google.com/maps?q=Emotion%20Scooter%20%26%20Bike%20Rental%20Magaluf%20Mallorca&output=embed";
 
-const NEXA_URL = "https://www.nexarentals.es";
-
 const CONTACT_WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
   "Hello Emotion Scooter & Bike Rental 👋 I would like more information about renting a scooter or bicycle in Mallorca."
 )}`;
@@ -460,24 +458,11 @@ Please confirm availability and the final rental price.
                 helps both teams provide reliable local assistance and a better
                 rental experience for visitors.
               </p>
-
-              <a
-                className="dark-button"
-                href={NEXA_URL}
-                target="_blank"
-                rel="noreferrer"
-              >
-                Visit NEXA Rentals
-                <span aria-hidden="true">↗</span>
-              </a>
             </div>
 
-            <a
+            <div
               className="partner-logo-wrapper"
-              href={NEXA_URL}
-              target="_blank"
-              rel="noreferrer"
-              aria-label="Visit NEXA Rentals"
+              aria-label="NEXA Rentals official partner"
             >
               <img
                 src="/images/nexa1.png"
@@ -485,7 +470,7 @@ Please confirm availability and the final rental price.
                 className="partner-logo"
                 loading="lazy"
               />
-            </a>
+            </div>
           </div>
         </section>
 
